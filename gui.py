@@ -93,12 +93,12 @@ class IntegrationGUI:
         self.drawing_area.pack(side=RIGHT, anchor=E)
         riemann.plot_riemann_sum(self.drawing_area, n, func, a, b, sum, delta_x, rectanges)
 
-    def update_mode(self, string):
-        self.selected_mode = string
+    def update_mode(self, mode):
+        self.selected_mode = mode
 
-        self.left_mode_button.config(relief=SUNKEN if string == "Left" else RAISED)
-        self.mid_mode_button.config(relief=SUNKEN if string == "Middle" else RAISED)
-        self.right_mode_button.config(relief=SUNKEN if string == "Right" else RAISED)
+        self.left_mode_button.config(relief=SUNKEN if mode == "Left" else RAISED)
+        self.mid_mode_button.config(relief=SUNKEN if mode == "Middle" else RAISED)
+        self.right_mode_button.config(relief=SUNKEN if mode == "Right" else RAISED)
 
 
 root = Tk()
