@@ -10,10 +10,11 @@ class IntegrationGUI:
         master.title("Riemann Sum Calculator")
         master.geometry("1120x480")
         master.resizable(False, False)
+        master.configure(background='white')
 
         ########## Labeling/Instructions
 
-        self.label = Label(master, text="Enter values in boxes and select a mode", font="16")
+        self.label = Label(master, text="Enter values in boxes and select a mode", font="16", background='white')
         self.label.place(x=20, y=20)
 
         ########## Enter Bounds/Rectangle Selection
@@ -24,28 +25,28 @@ class IntegrationGUI:
         self.enter_a = Entry(master)
         self.enter_a.place(x=50, y=390)
 
-        self.b_label = Label(master, text="b = ")
+        self.b_label = Label(master, text="b = ", background='white')
         self.b_label.place(x=20, y=80)
 
-        self.a_label = Label(master, text="a = ")
+        self.a_label = Label(master, text="a = ", background='white')
         self.a_label.place(x=20, y=390)
 
-        self.rectangle_selection_label = Label(master, text="Number of rectangles")
-        self.rectangle_selection_label.place(x=200, y=430)
+        self.rectangle_selection_label = Label(master, text="Number of rectangles", background='white')
+        self.rectangle_selection_label.place(x=180, y=430)
         self.rectangle_selection = Entry(master)
-        self.rectangle_selection.place(x=200, y=450)
+        self.rectangle_selection.place(x=180, y=450)
 
         ########## Enter Function
 
         self.enter_function = Entry(master)
         self.enter_function.place(x=145, y=245)
 
-        self.enter_function_label = Label(master, text="dx")
+        self.enter_function_label = Label(master, text="dx", background='white')
         self.enter_function_label.place(x=270, y=245)
 
         ########## Mode Buttons
 
-        self.mode_label = Label(master, text="Mode")
+        self.mode_label = Label(master, text="Mode", background='white')
         self.mode_label.place(x=380, y=430)
 
         self.left_mode_button = Button(text="LEFT", command=lambda: self.update_mode("Left"))
@@ -61,7 +62,7 @@ class IntegrationGUI:
         self.integrate_button = Button(master, text="Update", command=self.integrate)
         self.integrate_button.place(x=400, y=240)
 
-        self.integration_sign = Label(master, text="∫", font="Helvetica 180")
+        self.integration_sign = Label(master, text="∫", font="Helvetica 180", background='white')
         self.integration_sign.place(x=70, y=115)
 
         # Insert default values

@@ -1,5 +1,5 @@
 # Usage:
-1. Make sure matplotlib is installed on your computer (`pip3 install matplotlib`)
+1. Make sure matplotlib and numpy are installed on your computer (`pip3 install matplotlib numpy`)
 2. Invoke the program with `python3.7 gui.py`
 
 # Known issues:
