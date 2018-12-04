@@ -14,6 +14,9 @@ class IntegrationGUI:
 
         ########## Labeling/Instructions
 
+        self.integration_sign = Label(master, font=(None, 300), text="∫", background='white')
+        self.integration_sign.place(x=70, y=30)
+
         self.label = Label(master, text="Enter values in boxes and select a mode", font="16", background='white')
         self.label.place(x=20, y=20)
 
@@ -32,17 +35,17 @@ class IntegrationGUI:
         self.a_label.place(x=20, y=390)
 
         self.rectangle_selection_label = Label(master, text="Number of rectangles", background='white')
-        self.rectangle_selection_label.place(x=180, y=430)
+        self.rectangle_selection_label.place(x=135, y=430)
         self.rectangle_selection = Entry(master)
-        self.rectangle_selection.place(x=180, y=450)
+        self.rectangle_selection.place(x=110, y=450)
 
         ########## Enter Function
 
         self.enter_function = Entry(master)
-        self.enter_function.place(x=145, y=245)
+        self.enter_function.place(x=170, y=245)
 
         self.enter_function_label = Label(master, text="dx", background='white')
-        self.enter_function_label.place(x=270, y=245)
+        self.enter_function_label.place(x=360, y=250)
 
         ########## Mode Buttons
 
@@ -61,9 +64,6 @@ class IntegrationGUI:
 
         self.integrate_button = Button(master, text="Update", command=self.integrate)
         self.integrate_button.place(x=400, y=240)
-
-        self.integration_sign = Label(master, text="∫", font="Helvetica 180", background='white')
-        self.integration_sign.place(x=70, y=115)
 
         # Insert default values
         self.enter_b.insert(0, "4")
