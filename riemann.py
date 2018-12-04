@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 GREEN_HEX = '#99FF99'
 RED_HEX = '#F88379'
@@ -46,7 +47,10 @@ def compute_nth_riemann_sum(n: int, func: str, a: float, b: float, endpoint_meth
     return sum, delta_x, rectangles
 
 
-def plot_riemann_sum(n: int, func: str, a: float, b: float, sum: float, delta_x: float, rectangles: list):
+def plot_riemann_sum(tk_canvas, n: int, func: str, a: float, b: float, sum: float, delta_x: float, rectangles: list):
+    # Reset pyplot
+    plt.clf()
+
     # Evenly distributes 500 points between a and b, evaluates
     # func at each point, and plots the results
     x = np.linspace(a, b, num=500)
@@ -59,8 +63,12 @@ def plot_riemann_sum(n: int, func: str, a: float, b: float, sum: float, delta_x:
         plt.gca().add_patch(
             patches.Rectangle(
                 *rectangle,
-                # Positive area (y > 0) is green, negative area is red
-                color=GREEN_HEX if rectangle[2] > 0 else RED_HEX
+                # Positive area is green, negative area is red
+                # rectangle[1] = Δx, rectangle[2] = f(xᵢ*)
+                # If Δx * f(xᵢ*) > 0 then the area is above the curve and "moving"
+                # in the positive direction. If Δx were negative then area above
+                # the x axis should be counted as negative.
+                color=GREEN_HEX if rectangle[1] * rectangle[2] > 0 else RED_HEX
             )
         )
 
@@ -82,19 +90,8 @@ def plot_riemann_sum(n: int, func: str, a: float, b: float, sum: float, delta_x:
     )
 
     plt.xlim(a, b)  # Fixes an issue where the graph would cut out the first and last rectangle
-    plt.show()
 
-
-def main() -> None:
-    func = "-x^2 + 3".replace("^", "**")
-    n = 5
-    a = 0.5
-    b = 6.7
-    endpoint_method = "Left"
-
-    sum, delta_x, rectanges = compute_nth_riemann_sum(n, func, a, b, endpoint_method)
-    plot_riemann_sum(n, func, a, b, sum, delta_x, rectanges)
-
-
-if __name__ == '__main__':
-    main()
+    # Draw onto the Tkinter canvas
+    fig_canvas = FigureCanvasTkAgg(plt.gcf(), master=tk_canvas)
+    fig_canvas.draw()
+    fig_canvas.get_tk_widget().pack()
