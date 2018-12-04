@@ -23,13 +23,13 @@ class IntegrationGUI:
         ########## Enter Bounds/Rectangle Selection
 
         self.enter_b = Entry(master, text="1")
-        self.enter_b.place(x=50, y=80)
+        self.enter_b.place(x=150, y=80)
 
         self.enter_a = Entry(master)
         self.enter_a.place(x=50, y=390)
 
         self.b_label = Label(master, text="b = ", background='white')
-        self.b_label.place(x=20, y=80)
+        self.b_label.place(x=120, y=80)
 
         self.a_label = Label(master, text="a = ", background='white')
         self.a_label.place(x=20, y=390)
