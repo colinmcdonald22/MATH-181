@@ -1,11 +1,10 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
-
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
-GREEN_HEX = '#99FF99'
-RED_HEX = '#F88379'
+GREEN_RGB = '#99FF99'
+RED_RGB = '#F88379'
 
 
 def compute_nth_riemann_sum(n: int, func: str, a: float, b: float, endpoint_method: str) -> tuple:
@@ -14,6 +13,7 @@ def compute_nth_riemann_sum(n: int, func: str, a: float, b: float, endpoint_meth
     rectangles = []  # Keeps a history of the area we've summed. This is used purely for visualization
 
     # Python's range isn't inclusive of the end variable so add one (so the last value is n)
+    # (This is an implementation of the sigma notation used)
     for i in range(1, n + 1):
         # xᵢ = a + iΔx
         x_i_minus_1 = a + ((i - 1) * delta_x)
@@ -30,13 +30,13 @@ def compute_nth_riemann_sum(n: int, func: str, a: float, b: float, endpoint_meth
             raise ArithmeticError("Unknown sampling method " + endpoint_method)
 
         # Evaluate f(xᵢ*) (where xᵢ* = sample_point as chosen above)
-        # (We use the fact Python is a dynamic language to simply evaluate the function as code)
+        # (We use the fact Python is a dynamic language to simply treat the function as an expression)
         f_at_sample = eval(func, {"x": sample_point})
 
-        # Multiply by Δx and sum (doing this in a loop is equal to sigma notation)
+        # Multiply by Δx and then sum (doing this in a loop is equal to sigma notation)
         sum += f_at_sample * delta_x
 
-        # Store the coordinates of the area we calculated the area of to visualize later
+        # Store the coordinates of the rectangle we calculated the area of to visualize later
         # (The data is ordered like this so it can be passed directly into matplotlib)
         rectangles.append((
             (x_i_minus_1, 0),
@@ -48,11 +48,12 @@ def compute_nth_riemann_sum(n: int, func: str, a: float, b: float, endpoint_meth
 
 
 def plot_riemann_sum(tk_canvas, n: int, func: str, a: float, b: float, sum: float, delta_x: float, rectangles: list):
-    # Reset pyplot
+    # Reset pyplot (so we can plot more than one Riemann sum per program run)
     plt.clf()
 
-    # Evenly distributes 500 points between a and b, evaluates
-    # func at each point, and plots the results
+    # Plot the "actual" function (so we can see how it lines up with the rectangles used
+    # for approximation) by evenly distributing 500 points between a and b and evaluating
+    # func at each point
     x = np.linspace(a, b, num=500)
     y = eval(func)
 
@@ -68,7 +69,7 @@ def plot_riemann_sum(tk_canvas, n: int, func: str, a: float, b: float, sum: floa
                 # If Δx * f(xᵢ*) > 0 then the area is above the curve and "moving"
                 # in the positive direction. If Δx were negative then area above
                 # the x axis should be counted as negative.
-                color=GREEN_HEX if rectangle[1] * rectangle[2] > 0 else RED_HEX
+                color=GREEN_RGB if rectangle[1] * rectangle[2] > 0 else RED_RGB
             )
         )
 
@@ -89,7 +90,7 @@ def plot_riemann_sum(tk_canvas, n: int, func: str, a: float, b: float, sum: floa
         }
     )
 
-    plt.xlim(a, b)  # Fixes an issue where the graph would cut out the first and last rectangle
+    plt.xlim(a, b)  # Sometimes the auto scaling axis feature behaves oddly so we manually set it
 
     # Draw onto the Tkinter canvas
     fig_canvas = FigureCanvasTkAgg(plt.gcf(), master=tk_canvas)
