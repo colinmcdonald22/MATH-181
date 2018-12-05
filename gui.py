@@ -19,45 +19,45 @@ class IntegrationGUI:
         self.integration_sign.place(x=70, y=0)
 
         self.b_label = Label(master, text="b = ", background='white')
-        self.b_label.place(x=125, y=75)
+        self.b_label.place(x=110, y=75)
 
         self.a_label = Label(master, text="a = ", background='white')
-        self.a_label.place(x=75, y=385)
+        self.a_label.place(x=60, y=385)
 
         self.rectangle_selection_label = Label(master, text="Rectangles", background='white')
-        self.rectangle_selection_label.place(x=100, y=425)
+        self.rectangle_selection_label.place(x=85, y=425)
 
         self.enter_function_label = Label(master, text="dx", background='white')
         self.enter_function_label.place(x=360, y=240)
 
         self.mode_label = Label(master, text="Mode", background='white')
-        self.mode_label.place(x=215, y=425)
+        self.mode_label.place(x=200, y=425)
 
         ########## Enter Bounds/Rectangle Selection
 
         self.enter_b = Entry(master, width=5)
-        self.enter_b.place(x=150, y=75)
+        self.enter_b.place(x=135, y=75)
 
         self.enter_a = Entry(master, width=5)
-        self.enter_a.place(x=100, y=385)
+        self.enter_a.place(x=85, y=385)
 
         self.rectangle_selection = Entry(master, width=5)
-        self.rectangle_selection.place(x=115, y=445)
+        self.rectangle_selection.place(x=100, y=445)
 
         ########## Function
 
         self.enter_function = Entry(master, width=31)
-        self.enter_function.place(x=170, y=240)
+        self.enter_function.place(x=155, y=240)
 
         ########## Mode
 
-        self.mode_selector = Combobox(master, text="Right", values=["Left", "Middle", "Right"], state='readonly', width=8)
-        self.mode_selector.place(x=200, y=445)
+        self.mode_selector = Combobox(master, text="Right", values=["Left", "Middle", "Right"], state='readonly', width=8, background='white')
+        self.mode_selector.place(x=185, y=445)
 
         ########## Functional Buttons
 
         self.integrate_button = Button(master, text="Update", command=self.integrate)
-        self.integrate_button.place(x=315, y=440)
+        self.integrate_button.place(x=300, y=440)
 
         # Insert default values
         self.enter_b.insert(0, "4")
